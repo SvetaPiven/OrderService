@@ -1,0 +1,104 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1695759179636-1
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: orders_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: store_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: changed
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: total_price
+                  type: FLOAT4
+              - column:
+                  constraints:
+                    nullable: false
+                  name: delivery_datetime
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: delivery_address
+                  type: VARCHAR(256)
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+                  name: payment_status
+                  type: BOOLEAN
+            tableName: orders
+  - changeSet:
+      id: 1695759179636-2
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: goods_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: order_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: product_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: goods_quantity
+                  type: BIGINT
+            tableName: goods
+  - changeSet:
+      id: 1695759179636-3
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: goods
+            constraintName: goods_orders_id_fk
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: orders
+
