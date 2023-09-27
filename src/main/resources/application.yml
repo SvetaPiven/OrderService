@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/order
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    username: postgres
+    password: postgres
   application:
     name: orderservice
   jpa:
@@ -15,5 +15,5 @@ spring:
         format_sql: true
         ddl-auto: none
   liquibase:
-    change-log: classpath:db.changelog-master.yml
+    change-log: classpath:db/changelog/2023/09/27-01-changelog.yaml
     enabled: true
