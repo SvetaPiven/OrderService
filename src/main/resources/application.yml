@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/order
     username: postgres
-    password: postgres
+    password: root
   application:
     name: orderservice
   jpa:
