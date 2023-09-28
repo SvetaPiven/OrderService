@@ -3,9 +3,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/order
     username: postgres
-    password: postgres
+    password: root
   application:
-    name: orderservice
+    name: order-service
+
   jpa:
     properties:
       hibernate:
@@ -14,6 +15,13 @@ spring:
         show_sql: true
         format_sql: true
         ddl-auto: none
+
   liquibase:
     change-log: classpath:db/changelog/2023/09/28-01-changelog.yaml
     enabled: true
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
