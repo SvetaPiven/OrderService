@@ -17,6 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,10 +29,10 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @ToString.Include
     @Column(name = "id", nullable = false)
-    private Long id;
+    private UUID id;
 
     @CreatedDate
     @Column(name = "created", columnDefinition = "TIMESTAMP", nullable = false)

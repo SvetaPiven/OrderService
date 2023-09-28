@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1695804555272-1
+      id: 1695897337985-1
       author: Gwynbleidd (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -18,7 +18,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: order_id
-                  type: BIGINT
+                  type: UUID
               - column:
                   constraints:
                     nullable: false
@@ -31,20 +31,30 @@ databaseChangeLog:
                   type: BIGINT
             tableName: goods
   - changeSet:
-      id: 1695804555272-2
+      id: 1695897337985-2
       author: Gwynbleidd (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
-                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
                     primaryKeyName: pk_orders
                   name: id
-                  type: BIGINT
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created
+                  type: TIMESTAMP
+              - column:
+                  name: changed
+                  type: TIMESTAMP
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
               - column:
                   constraints:
                     nullable: false
@@ -55,17 +65,6 @@ databaseChangeLog:
                     nullable: false
                   name: store_id
                   type: BIGINT
-              - column:
-                  constraints:
-                    nullable: false
-                  name: created
-                  type: DATETIME
-              - column:
-                  name: changed
-                  type: DATETIME
-              - column:
-                  name: is_deleted
-                  type: BOOLEAN
               - column:
                   constraints:
                     nullable: false
@@ -88,7 +87,7 @@ databaseChangeLog:
                   type: BOOLEAN
             tableName: orders
   - changeSet:
-      id: 1695804555272-3
+      id: 1695897337985-3
       author: Gwynbleidd (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
