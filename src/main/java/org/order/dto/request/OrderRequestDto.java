@@ -5,9 +5,8 @@ import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.util.Set;
-import java.util.UUID;
 
-public record OrderRequestDto(@NotNull UUID userId,
+public record OrderRequestDto(@NotNull Long userId,
                               @NotNull Long storeId,
                               @NotNull Float totalPrice,
                               @NotNull Instant deliveryDatetime,
