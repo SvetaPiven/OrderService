@@ -1,6 +1,7 @@
 package org.order.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -45,7 +46,7 @@ public class Order extends BaseEntity {
     private Boolean paymentStatus = false;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Good> goods = new LinkedHashSet<>();
 
