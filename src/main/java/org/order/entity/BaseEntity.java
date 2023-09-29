@@ -29,8 +29,8 @@ import java.util.UUID;
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @ToString.Include
+//    @GeneratedValue(strategy = GenerationType.UUID)
+    @EqualsAndHashCode.Include
     @Column(name = "id", nullable = false)
     private UUID id;
 
