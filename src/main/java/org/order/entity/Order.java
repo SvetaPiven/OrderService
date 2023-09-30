@@ -14,7 +14,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -47,7 +49,6 @@ public class Order extends BaseEntity {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Set<Good> goods = new LinkedHashSet<>();
+    private List<Good> goods = new ArrayList<>();
 
 }

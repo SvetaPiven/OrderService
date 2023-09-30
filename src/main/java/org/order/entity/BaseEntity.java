@@ -29,13 +29,13 @@ import java.util.UUID;
 public abstract class BaseEntity {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.UUID)
+  //  @GeneratedValue(strategy = GenerationType.UUID)
     @EqualsAndHashCode.Include
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private UUID id;
 
     @CreatedDate
-    @Column(name = "created", columnDefinition = "TIMESTAMP", nullable = false)
+    @Column(name = "created", columnDefinition = "TIMESTAMP")
     private LocalDateTime created;
 
     @LastModifiedDate
