@@ -1,6 +1,5 @@
 package org.order.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,9 +14,7 @@ import lombok.ToString;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,8 +41,8 @@ public class Order extends BaseEntity {
     @Column(name = "delivery_address", nullable = false, length = 256)
     private String deliveryAddress;
 
-    @Column(name = "payment_status", nullable = false)
-    private Boolean paymentStatus = false;
+    @Column(name = "is_paid", nullable = false)
+    private Boolean isPaid = false;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

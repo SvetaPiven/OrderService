@@ -34,14 +34,5 @@ public interface OrderMapper {
     default List<Good> links(OrderRequestDto orderRequestDto) {
         return orderRequestDto.goods().stream().map(goodDto ->
                 Good.builder().productId(goodDto.productId()).goodsQuantity(goodDto.goodsQuantity()).build()).toList();
-
     }
-
-//    @Named("links")
-//    default List<Good> links(OrderRequestDto orderRequestDto) {
-//        return orderRequestDto.goods().stream().map(goodDto ->
-//                Good.builder().productId(goodDto.productId()).goodsQuantity(goodDto.goodsQuantity()).build()).toList();
-//
-//    }
-
 }

@@ -10,7 +10,7 @@
   </component>
   <component name="PersistenceUnitSettings">
     <persistence-units>
-      <persistence-unit name="Default" defaultIncludeChangeLogFile="src/main/resources/db.changelog-master.yml">
+      <persistence-unit name="Default" defaultIncludeChangeLogFile="src/main/resources/db/changelog/2023/09/28-01-changelog.yaml">
         <packages>
           <package value="org.order" />
         </packages>
