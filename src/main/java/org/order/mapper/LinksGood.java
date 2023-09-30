@@ -9,10 +9,23 @@ import java.util.List;
 
 @Component
 public class LinksGood {
+
     @Named("links")
     public List<Good> links(OrderRequestDto orderRequestDto) {
         return orderRequestDto.goods().stream().map(goodDto ->
                 Good.builder().productId(goodDto.productId()).goodsQuantity(goodDto.goodsQuantity()).build()).toList();
 
     }
+
+//    @Named("links")
+//    default List<Good> links(List<OrderRequestDto.GoodDto> orderRequestDto) {
+//        return orderRequestDto.stream()
+//                .map(goodDto ->
+//                        Good.builder()
+//                                .productId(goodDto.productId())
+//                                .goodsQuantity(goodDto.goodsQuantity())
+//                                .build())
+//                .toList();
+//
+//    }
 }

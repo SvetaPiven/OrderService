@@ -13,23 +13,29 @@ import org.order.entity.Good;
 import org.order.entity.Order;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring",
-        builder = @Builder(disableBuilder = true), uses = {LinksGood.class})
+        builder = @Builder(disableBuilder = true))
 public interface OrderMapper {
 
-    @Mapping(target = "goods", source = "goods", qualifiedByName = "links")
+    @Mapping(target = "goods", source = "orderRequestDto", qualifiedByName = "links")
     Order toEntity(OrderRequestDto orderRequestDto);
 
-//    @AfterMapping
-//    default void linkGoods(@MappingTarget Order order) {
-//        order.getGoods().forEach(good -> good.setOrder(order));
-//    }
+    @AfterMapping
+    default void linkGoods(@MappingTarget Order order) {
+        order.getGoods().forEach(good -> good.setOrder(order));
+    }
 
     @Mapping(target = "orderId", source = "id")
     OrderResponseDto toOrderResponseDto(Order order);
+
+    @Named("links")
+    default List<Good> links(OrderRequestDto orderRequestDto) {
+        return orderRequestDto.goods().stream().map(goodDto ->
+                Good.builder().productId(goodDto.productId()).goodsQuantity(goodDto.goodsQuantity()).build()).toList();
+
+    }
 
 //    @Named("links")
 //    default List<Good> links(OrderRequestDto orderRequestDto) {
