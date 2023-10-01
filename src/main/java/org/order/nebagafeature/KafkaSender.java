@@ -25,7 +25,7 @@ public class KafkaSender {
         try {
             futureMessage.get(3, TimeUnit.SECONDS);
         } catch (Exception ex) {
-            throw new RuntimeException("Сообщение не отправлено. Попробуйте позже: " + ex.getMessage());
+            throw new UnsupportedOperationException("Сообщение не отправлено. Попробуйте позже");
         }
     }
 }

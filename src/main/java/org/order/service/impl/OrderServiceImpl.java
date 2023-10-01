@@ -1,6 +1,5 @@
 package org.order.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.order.dto.request.OrderRequestDto;
 import org.order.entity.Order;
@@ -8,7 +7,9 @@ import org.order.mapper.OrderMapper;
 import org.order.repository.OrderRepository;
 import org.order.service.OrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -19,20 +20,27 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
 
+    @Transactional
     @Override
     public Order saveOrder(OrderRequestDto requestDto) {
+        if (orderRepository.findById(requestDto.id()).isPresent()) {
+            throw new UnsupportedOperationException("Такой заказ уже создан");
+        }
         return orderRepository.saveAndFlush(orderMapper.toEntity(requestDto));
     }
 
+    @Transactional
     @Override
-    public Boolean setStatusIsPaid(UUID id) {
-        int affectedRows = orderRepository.updateStatusById(id);
-        return affectedRows != 0;
+    public void setStatusIsPaid(UUID id) {
+        Order order = this.findById(id);
+        if (!order.getIsPaid()) {
+            order.setIsPaid(true);
+        } else throw new IllegalArgumentException("заказ уже был передан в службку доставки");
     }
 
     @Override
     public Order findById(UUID id) {
         return orderRepository.findById(id).orElseThrow(()
-                -> new EntityNotFoundException("Заказ с id: " + id + " не найден!"));
+                -> new NoSuchElementException("Заказ с id: " + id + " не найден!"));
     }
 }

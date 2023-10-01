@@ -9,6 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 @EnableJpaAuditing
 public class AppConfig {
+
     @Bean
     public NewTopic ordersTopic() {
         return TopicBuilder.name("ordersTopic")

@@ -7,7 +7,6 @@ import org.order.nebagafeature.KafkaSender;
 import org.order.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -35,26 +33,15 @@ public class OrderController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto dto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new RuntimeException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
-        }
-
-        orderService.saveOrder(dto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("заказ передан");
+    public ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request) {
+        orderService.saveOrder(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body("заказ сохранен");
     }
 
-    @PatchMapping("/payment/{id}")
-    public ResponseEntity<String> confirmPayment(@PathVariable UUID id) {
-        String result = "";
-        if (!orderService.findById(id).getIsPaid()) {
-            orderService.setStatusIsPaid(id);
-            kafkaSender.sendMessage(id.toString());
-            result = "заказ передан в доставку";
-        } else {
-            result = "заказ уже был передан ранее";
-        }
-        return ResponseEntity.ok(result);
+    @PatchMapping("/payment/{transferId}")
+    public ResponseEntity<String> confirmPayment(@PathVariable UUID transferId) {
+        orderService.setStatusIsPaid(transferId);
+        kafkaSender.sendMessage(transferId.toString());
+        return ResponseEntity.ok("Заказ успешно передан в службу доставки");
     }
 }
