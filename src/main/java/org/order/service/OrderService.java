@@ -6,9 +6,10 @@ import org.order.entity.Order;
 import java.util.UUID;
 
 public interface OrderService {
+
     Order saveOrder(OrderRequestDto dto);
 
-    Boolean setStatusIsPaid(UUID id);
+    void setStatusIsPaid(UUID id);
 
     Order findById(UUID id);
 }

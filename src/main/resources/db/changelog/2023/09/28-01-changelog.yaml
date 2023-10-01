@@ -41,6 +41,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
+                    unique: true
                     primaryKeyName: pk_orders
                   name: id
                   type: UUID
