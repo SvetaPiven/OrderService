@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.net.ConnectException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -34,6 +35,13 @@ public class GlobalExceptionHandler {
                 .body(new ApiErrorResponse(ex.getMessage(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(ConnectException.class)
+    public ResponseEntity<ApiErrorResponse> handleInternalServerError(ConnectException ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ApiErrorResponse("Internal Server Error", LocalDateTime.now()));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
         String errors = ex.getBindingResult().getFieldErrors().stream()
@@ -45,7 +53,4 @@ public class GlobalExceptionHandler {
                 .body(new ApiErrorResponse(errors, LocalDateTime.now()));
     }
 
-    public record ApiErrorResponse(String message, LocalDateTime dateTime) {
-
-    }
 }

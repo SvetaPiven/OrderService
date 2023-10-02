@@ -8,7 +8,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.order.dto.request.OrderRequestDto;
-import org.order.dto.response.OrderResponseDto;
 import org.order.entity.Good;
 import org.order.entity.Order;
 
@@ -26,9 +25,6 @@ public interface OrderMapper {
     default void linkGoods(@MappingTarget Order order) {
         order.getGoods().forEach(good -> good.setOrder(order));
     }
-
-    @Mapping(target = "orderId", source = "id")
-    OrderResponseDto toOrderResponseDto(Order order);
 
     @Named("links")
     default List<Good> links(OrderRequestDto orderRequestDto) {

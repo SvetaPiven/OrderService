@@ -1,40 +1,77 @@
 package org.order.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.order.config.ApiErrorResponse;
 import org.order.dto.request.OrderRequestDto;
-import org.order.nebagafeature.KafkaSender;
-import org.order.service.OrderService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
-@RestController
+@Tag(name = "Контроллер для создания и хранения информации о заказе и обновления статуса заказа")
 @RequestMapping("/api/order")
-public class OrderController {
-
-    private final KafkaSender kafkaSender;
-
-    private final OrderService orderService;
-
+public interface OrderController {
     @PostMapping("/create")
-    public ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request) {
-        orderService.saveOrder(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body("заказ сохранен");
-    }
+    @Operation(summary = "Сохранение информации о заказе",
+            description = "Данный эндпоинт предназначен для сохранения информации о заказе в таблицы order и goods")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Запрос выполнен успешно",
+                    content = {@Content(schema = @Schema(implementation = String.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Ошибка валидации",
+                    content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Такой заказ уже создан",
+                    content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal Server Error",
+                    content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}
+            )
+    })
+    ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request);
 
     @PatchMapping("/payment/{transferId}")
-    public ResponseEntity<String> confirmPayment(@PathVariable UUID transferId) {
-        orderService.setStatusIsPaid(transferId);
-        kafkaSender.sendMessage(transferId.toString());
-        return ResponseEntity.ok("Заказ успешно передан в службу доставки");
-    }
+    @Operation(summary = "Обновления статуса заказа по идентификатору",
+            description = "Данный эндпоинт предназначен для обновления статуса заказа по идентификатору transferId")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Запрос выполнен успешно",
+                    content = {@Content(schema = @Schema(implementation = String.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Заказ уже был передан в службку доставки",
+                    content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Заказ с таким идентификатором не найден",
+                    content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal Server Error",
+                    content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}
+            )
+    })
+    ResponseEntity<String> confirmPayment(@PathVariable UUID transferId);
 }
