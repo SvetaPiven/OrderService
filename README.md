@@ -28,9 +28,6 @@ Content-Type: application/json
 }
 
 На этот запрос order service возвращает в responseEntity:
-{
-    "orderId": 611a678a-8d1d-4baf-a766-73e4361945c8
-}
 HttpStatus: Created
 
 В Order service формируется заказ, а Store service направляет orderId на оплату в payment service и получает ответ.
