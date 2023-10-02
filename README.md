@@ -32,7 +32,7 @@ HttpStatus: Created
 
 В Order service формируется заказ, а Store service направляет orderId на оплату в payment service и получает ответ.
 После успешной оплаты Store service передает в Order service статус оплаты:
-        Ep на order service /payment_status?status=true
+        Ep на order service /payment/{transferId}
         (http://localhost:8080/api/order/payment/611a678a-8d1d-4baf-a766-73e4361945c8)
 
 После получения положительного статуса оплаты Order service передает заказ в delivery service.
