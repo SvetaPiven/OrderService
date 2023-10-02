@@ -25,13 +25,6 @@ public class OrderController {
 
     private final OrderService orderService;
 
-
-//    @GetMapping("/{message}")
-//    public ResponseEntity<?> sendMessage(@PathVariable String message) {
-//        kafkaSender.sendMessage(message);
-//        return ResponseEntity.status(418).body("JEP-JEP-HOORAY!!)))00 *(^_^)*");
-//    }
-
     @PostMapping("/create")
     public ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request) {
         orderService.saveOrder(request);

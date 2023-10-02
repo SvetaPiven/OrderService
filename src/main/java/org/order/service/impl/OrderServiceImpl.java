@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void setStatusIsPaid(UUID id) {
         Order order = this.findById(id);
-        if (!order.getIsPaid()) {
+        if (Boolean.FALSE.equals(order.getIsPaid())) {
             order.setIsPaid(true);
         } else throw new IllegalArgumentException("заказ уже был передан в службку доставки");
     }
