@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
                 version = "1.0",
                 description = "Order Service",
                 contact = @Contact(
-                        name = "svetapiven93@gmail.com",
-                        email = "svetapiven93@gmail.com"
+                        name = "orderservice@gmail.com",
+                        email = "orderservice@gmail.com"
                 ),
                 license = @License(
                         name = "MIT Licence",

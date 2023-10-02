@@ -36,7 +36,7 @@ public class OrderControllerImpl implements OrderController {
     @PatchMapping("/payment/{transferId}")
     public ResponseEntity<String> confirmPayment(@PathVariable UUID transferId) {
         orderService.setStatusIsPaid(transferId);
-        // kafkaSender.sendMessage(transferId.toString());
+        kafkaSender.sendMessage(transferId.toString());
         return ResponseEntity.ok("Заказ успешно передан в службу доставки");
     }
 }
