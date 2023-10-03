@@ -14,7 +14,7 @@ public record OrderRequestDto(
         @Schema(description = "ID покупателя", example = "1") @NotNull Long userId,
         @Schema(description = "ID магазина", example = "1") @NotNull Long storeId,
         @Schema(description = "Конечная цена", example = "100") @NotNull Float totalPrice,
-        @Schema(description = "ID покупателя", example = "2023-10-02T11:10:00.923Z") @NotNull Instant deliveryDatetime,
+        @Schema(description = "Дата формирования", example = "2023-10-02T11:10:00.923Z") @NotNull Instant deliveryDatetime,
         @Schema(description = "Адрес покупателя", example = "ул. К.Маркса 24 кв. 1") @NotNull @Size(max = 256) String deliveryAddress,
         List<GoodDto> goods) {
 
