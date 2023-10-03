@@ -29,7 +29,7 @@ public class OrderControllerImpl implements OrderController {
     @PostMapping("/create")
     public ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request) {
         orderService.saveOrder(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Заказ успешно");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Заказ передан");
     }
 
     @Override

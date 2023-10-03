@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = this.findById(id);
         if (Boolean.FALSE.equals(order.getIsPaid())) {
             order.setIsPaid(true);
-        } else throw new IllegalArgumentException("заказ уже был передан в службку доставки");
+        } else throw new IllegalArgumentException("Заказ уже был передан в службку доставки");
     }
 
     @Override
@@ -43,4 +43,5 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).orElseThrow(()
                 -> new NoSuchElementException("Заказ с id: " + id + " не найден!"));
     }
+
 }
