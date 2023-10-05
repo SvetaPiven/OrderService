@@ -7,21 +7,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.order.config.ApiErrorResponse;
 import org.order.dto.request.OrderRequestDto;
+import org.order.dto.response.ApiErrorResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.UUID;
 
 @Tag(name = "Контроллер для создания и хранения информации о заказе и обновления статуса заказа")
-@RequestMapping("/api/order")
 public interface OrderController {
-    @PostMapping("/create")
+
     @Operation(summary = "Сохранение информации о заказе",
             description = "Данный эндпоинт предназначен для сохранения информации о заказе в таблицы order и goods")
     @ApiResponses(value = {
@@ -48,7 +44,6 @@ public interface OrderController {
     })
     ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request);
 
-    @PatchMapping("/payment/{transferId}")
     @Operation(summary = "Обновления статуса заказа по идентификатору",
             description = "Данный эндпоинт предназначен для обновления статуса заказа по идентификатору transferId")
     @ApiResponses(value = {

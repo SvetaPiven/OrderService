@@ -1,6 +1,7 @@
 spring:
   liquibase:
-    enabled: false
+    enabled: true
+    change-log: classpath:test-master.yml
   kafka:
     consumer:
       auto-offset-reset: earliest

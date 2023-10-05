@@ -1,7 +1,8 @@
-package org.order.controller;
+package org.order.controller.impl;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.order.controller.OrderController;
 import org.order.dto.request.OrderRequestDto;
 import org.order.nebagafeature.KafkaSender;
 import org.order.service.OrderService;

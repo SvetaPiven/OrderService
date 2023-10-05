@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1696070399073-2
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: is_paid
+                  type: BOOLEAN
+            tableName: orders
+  - changeSet:
+      id: 1696070399073-3
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnName: is_paid
+            tableName: orders
+  - changeSet:
+      id: 1696070399073-4
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: payment_status
+            tableName: orders
+  - changeSet:
+      id: 1696070399073-1
+      author: Gwynbleidd (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropNotNullConstraint:
+            columnDataType: timestamp
+            columnName: created
+            tableName: orders
+

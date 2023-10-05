@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,11 +20,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092",
         "port=9092"})
 class KafkaTest {
+
     @Autowired
     private KafkaConsumer consumer;
 
     @Autowired
     private KafkaSender producer;
+
+    @DynamicPropertySource
+    static void setProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.liquibase.enabled", () -> false);
+    }
 
     @Test
     void givenEmbeddedKafkaBroker_whenSendingWithSimpleProducer_thenMessageReceived() throws InterruptedException {

@@ -1,4 +1,4 @@
-package org.order.config;
+package org.order.dto.response;
 
 import java.time.LocalDateTime;
 
