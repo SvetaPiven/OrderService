@@ -7,8 +7,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: order-service
+    environment:
+      DATABASE_URL: jdbc:postgresql://order-db:5432/order
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: root
+      KAFKA_SERVERS: kafka:9092
     ports:
-      - "8080:8888"
+      - 8080:8888
     depends_on:
       - order-db
       - kafka
@@ -16,11 +21,11 @@ services:
   order-db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: "order"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "root"
+      POSTGRES_DB: order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
