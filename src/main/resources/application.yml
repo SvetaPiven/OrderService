@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/order_db}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:maxim}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/order}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:root}
   application:
     name: order-service
 
@@ -21,7 +21,7 @@ spring:
     enabled: true
 
   kafka:
-    bootstrap-servers: ${KAFKA_HOST:localhost:29092}
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:29092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
