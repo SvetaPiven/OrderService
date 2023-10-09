@@ -10,7 +10,7 @@ services:
     environment:
       DATABASE_URL: jdbc:postgresql://order-db:5432/order
       DATABASE_USER: postgres
-      DATABASE_PASSWORD: root
+      DATABASE_PASSWORD: postgres
       KAFKA_SERVERS: kafka:9092
     ports:
       - 8080:8888
@@ -23,7 +23,7 @@ services:
     environment:
       POSTGRES_DB: order
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      POSTGRES_PASSWORD: postgres
     ports:
       - 5432:5432
 
@@ -57,3 +57,40 @@ services:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+
+  prometheus:
+    image: prom/prometheus
+#    network_mode: host
+#    container_name: prometheus
+#    restart: unless-stopped
+    ports:
+      - 9090:9090
+    volumes:
+#      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - D:\aston\OrderService\data\prometheus\config\prometheus.yml:/etc/prometheus/prometheus.yml
+
+#  node-exporter:
+#    image: prom/node-exporter:latest
+##    network_mode: host
+##    container_name: monitoring_node_exporter
+##    restart: unless-stopped
+#    ports:
+#      - 9100
+
+  grafana:
+    image: grafana/grafana-oss:8.5.2
+#    network_mode: host
+#    container_name: grafana
+#    restart: unless-stopped
+#    user: postgres
+    ports:
+      - 3000:3000
+#    volumes:
+#      - ./data/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=localhost
+      - GF_LOG_MODE=console file
+      - GF_LOG_FILTERS=alerting.notifier.slack:debug alertmanager:debug ngalert:debug
+

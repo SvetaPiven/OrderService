@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/order}
     username: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWORD:root}
+    password: ${DATABASE_PASSWORD:postgres}
   application:
     name: order-service
 
@@ -25,3 +25,13 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+management:
+  endpoints.web.exposure.include: 'prometheus, health, info, metric'
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+      distribution:
+        percentiles-histogram:
+          "[http.server.requests]" : true
