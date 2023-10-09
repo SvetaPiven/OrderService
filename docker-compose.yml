@@ -17,6 +17,8 @@ services:
     depends_on:
       - order-db
       - kafka
+      - prometheus
+
 
   order-db:
     image: postgres:latest
@@ -66,14 +68,11 @@ services:
       - D:\aston\OrderService\data\prometheus\config\prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
-    image: grafana/grafana-oss:8.5.2
+    image: grafana/grafana
     ports:
       - 3000:3000
     environment:
+      - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_SERVER_DOMAIN=host.docker.internal
-      - GF_LOG_MODE=console file
-      - GF_LOG_FILTERS=alerting.notifier.slack:debug alertmanager:debug ngalert:debug
 
 
