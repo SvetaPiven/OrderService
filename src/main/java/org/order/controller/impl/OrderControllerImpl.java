@@ -1,5 +1,7 @@
 package org.order.controller.impl;
 
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.order.controller.OrderController;
@@ -28,6 +30,7 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     @PostMapping("/create")
+    @Timed(value = "order.save", description = "Время сохранения заказа")
     public ResponseEntity<String> saveOrder(@RequestBody @Valid OrderRequestDto request) {
         orderService.saveOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("Заказ передан");
@@ -35,6 +38,7 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     @PatchMapping("/payment/{transferId}")
+    @Timed(value = "order.payment", description = "Время подтверждения оплаты")
     public ResponseEntity<String> confirmPayment(@PathVariable UUID transferId) {
         orderService.setStatusIsPaid(transferId);
         kafkaSender.sendMessage(transferId.toString());
