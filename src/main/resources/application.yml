@@ -3,9 +3,17 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/order}
     username: ${DATABASE_USER:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    password: ${DATABASE_PASSWORD:root}
   application:
     name: order-service
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+    mongodb:
+      uri: mongodb://localhost:27017/test
 
   jpa:
     properties:
@@ -20,11 +28,11 @@ spring:
     change-log: classpath:db.master.yml
     enabled: true
 
-  kafka:
-    bootstrap-servers: ${KAFKA_SERVERS:localhost:29092}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#  kafka:
+#    bootstrap-servers: ${KAFKA_SERVERS:localhost:29092}
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 management:
   endpoints.web.exposure.include: 'prometheus, health, info, metric'
@@ -36,3 +44,14 @@ management:
     metrics:
       export:
         enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            repository:
+              org.springframework.data.mongodb.repository.Query: INFO
+            core:
+              MongoTemplate: DEBUG

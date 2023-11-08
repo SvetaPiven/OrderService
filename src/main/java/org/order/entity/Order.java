@@ -5,16 +5,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +24,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity {
+public class Order extends BaseEntity implements Serializable{
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
