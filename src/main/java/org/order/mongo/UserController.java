@@ -1,4 +1,4 @@
-package org.order.entity.mongo;
+package org.order.mongo;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,10 @@ public class UserController {
     return userRepository.findAll();
   }
 
+
   @GetMapping("/{userId}")
   public User getUser(@PathVariable String userId) {
-    return userRepository.findById(userId).get();
+    return userRepository.findByUserId(userId).get();
   }
 
 }

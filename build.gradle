@@ -33,6 +33,13 @@ dependencies {
     implementation group: 'io.swagger.core.v3', name: 'swagger-core', version: '2.2.16'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.11.4'
     implementation 'io.micrometer:micrometer-core:1.11.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.0.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '3.0.5'
+    implementation group: 'redis.clients', name: 'jedis', version: '3.7.0'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
+    runtimeOnly group: 'com.fasterxml.jackson.module', name: 'jackson-modules-java8', version: '2.14.1', ext: 'pom'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '3.0.7'
 
     compileOnly 'org.projectlombok:lombok'

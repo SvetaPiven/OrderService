@@ -1,5 +1,6 @@
-package org.order.entity.mongo;
+package org.order.mongo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 @Getter
 @Setter
-public class User {
+public class User implements Serializable {
 
   @Id
   private String userId;
