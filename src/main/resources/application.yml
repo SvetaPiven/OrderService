@@ -7,6 +7,15 @@ spring:
   application:
     name: order-service
 
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: root
+      database: user_db
+      port: 27017
+      host: localhost
+
   jpa:
     properties:
       hibernate:
