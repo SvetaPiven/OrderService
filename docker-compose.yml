@@ -75,4 +75,9 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
+  cache:
+    image: redis:6.2-alpine
+    ports:
+      - '6379:6379'
+
 

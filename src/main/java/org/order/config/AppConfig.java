@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class AppConfig {
 
-    @Bean
-    public NewTopic ordersTopic() {
-        return TopicBuilder.name("ordersTopic")
-                .build();
-    }
+//    @Bean
+//    public NewTopic ordersTopic() {
+//        return TopicBuilder.name("ordersTopic")
+//                .build();
+//    }
 }

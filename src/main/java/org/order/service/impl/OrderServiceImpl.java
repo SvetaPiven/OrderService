@@ -6,6 +6,8 @@ import org.order.entity.Order;
 import org.order.mapper.OrderMapper;
 import org.order.repository.OrderRepository;
 import org.order.service.OrderService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
+@CacheConfig(cacheNames = "customerCache")
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
@@ -39,8 +42,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+//    @Cacheable(value = "orders")
     public Order findById(UUID id) {
-        return orderRepository.findById(id).orElseThrow(()
+        return orderRepository.findOrderWithGoodsById(id).orElseThrow(()
                 -> new NoSuchElementException("Заказ с id: " + id + " не найден!"));
     }
 
